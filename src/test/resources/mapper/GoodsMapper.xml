@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.power.demo.dao.GoodsDao">
+    <resultMap id="BaseResultMap" type="com.power.demo.domain.GoodsDO">
+        <result column="GoodsId" property="goodsId"/>
+        <result column="GoodsCode" property="goodsCode"/>
+        <result column="GoodsName" property="goodsName"/>
+        <result column="GoodsType" property="goodsType"/>
+        <result column="CreateTime" property="createTime"/>
+        <result column="Disabled" property="disabled"/>
+    </resultMap>
+
+    <parameterMap id="Goods" type="com.power.demo.domain.GoodsDO"/>
+
+    <sql id="Base_Column_List">
+		GoodsId,GoodsCode,GoodsName,GoodsType,CreateTime,Disabled
+	</sql>
+
+    <select id="findGoodsByGoodsId" resultType="GoodsDO" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM Goods WITH(NOLOCK) WHERE 1=1
+        AND Disabled=0
+        AND GoodsId = #{goodsId}
+    </select>
+
+    <select id="findGoodsByGoodsCode" resultType="GoodsDO" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM Goods WITH(NOLOCK) WHERE 1=1
+        AND Disabled=0
+        AND GoodsCode = #{goodsCode}
+    </select>
+
+    <select id="findGoodsByGoodsType" resultType="GoodsDO" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM Goods WITH(NOLOCK) WHERE 1=1
+        AND Disabled=0
+        AND GoodsType = #{goodsType}
+    </select>
+
+    <select id="findAllGoods" resultType="GoodsDO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM Goods WITH(NOLOCK) WHERE 1=1
+    </select>
+
+    <insert id="insertGoods" parameterMap="Goods">
+
+        INSERT INTO Goods (GoodsId,GoodsCode,GoodsName,GoodsType,CreateTime,Disabled)
+        VALUES(#{goodsId},#{goodsCode},#{goodsName},#{goodsType},#{createTime},#{disabled})
+
+    </insert>
+
+    <insert id="updateGoods" parameterMap="Goods">
+
+        UPDATE Goods SET Disabled=#{disabled} WHERE GoodsId=#{goodsId}
+
+    </insert>
+
+    <insert id="deleteGoods" parameterType="java.lang.String">
+
+        DELETE FROM Goods WHERE GoodsId=#{goodsId}
+
+    </insert>
+
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.power.demo.dao.BooksDao">
+    <resultMap id="BooksResultMap" type="com.power.demo.entity.vo.BooksVO">
+        <result column="Id" property="id"/>
+        <result column="Name" property="name"/>
+        <result column="Price" property="price"/>
+        <result column="Category" property="category"/>
+    </resultMap>
+    <parameterMap id="Books" type="com.power.demo.entity.vo.BooksVO"/>
+    <sql id="Base_Books_List">
+        Id,Name,Price,Category
+    </sql>
+
+    <select id="selectAllBooks" resultType="com.power.demo.entity.vo.BooksVO">
+        SELECT
+         <include refid="Base_Books_List"/>
+         FROM books;
+    </select>
+
+    <select id="selectByName" resultType="com.power.demo.entity.vo.BooksVO" parameterType="java.lang.String">
+      SELECT
+        <include refid="Base_Books_List"/>
+       FROM books WHERE 1=1
+      AND Name = #{name}
+    </select>
+
+    <insert id="addBooks" parameterMap="Books">
+      insert INTO books(Id,Name,Price,Category)
+      VALUES(#{id},#{name},#{price},#{category})
+    </insert>
+
+    <insert id="changeBooks" parameterMap="Books">
+        UPDATE books SET Name=#{name},Price=#{price},Category=#{category}
+        WHERE Id=#{id}
+    </insert>
+
+    <insert id="deleteBooks" parameterType="java.lang.String">
+        DELETE FROM books WHERE Id=#{id}
+    </insert>
+</mapper>

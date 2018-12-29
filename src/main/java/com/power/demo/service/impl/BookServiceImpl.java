@@ -13,8 +13,9 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BooksDao booksDao;
     @Override
-    public void addBooks(BooksVO books) {
-        booksDao.addBooks(books);
+    public int addBooks(BooksVO books) {
+       int a =  booksDao.addBooks(books);
+       return a;
     }
 
     @Override
@@ -39,7 +40,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBooks(String bookId) {
-        booksDao.deleteBooks(bookId);
+    public int deleteBooks(String bookId) {
+       int a = booksDao.deleteBooks(bookId);
+       return a;
     }
 }

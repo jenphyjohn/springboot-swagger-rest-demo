@@ -8,7 +8,7 @@ public interface BookService {
     /**
      * 添加图书
      */
-     void addBooks(BooksVO books);
+     int addBooks(BooksVO books);
 
     /**
      * 查询所有图书
@@ -33,5 +33,5 @@ public interface BookService {
     /**
      * 根据id删除图书
      */
-    void deleteBooks(String bookId);
+    int deleteBooks(String bookId);
 }

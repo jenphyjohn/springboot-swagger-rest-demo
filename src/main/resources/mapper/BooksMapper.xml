@@ -15,7 +15,7 @@
     <select id="selectAllBooks" resultType="com.power.demo.entity.vo.BooksVO">
         SELECT
          <include refid="Base_Books_List"/>
-         FROM books;
+         FROM books
     </select>
 
     <select id="selectByName" resultType="com.power.demo.entity.vo.BooksVO" parameterType="java.lang.String">

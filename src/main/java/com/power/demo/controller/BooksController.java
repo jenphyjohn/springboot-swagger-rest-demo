@@ -1,6 +1,8 @@
 package com.power.demo.controller;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.power.demo.entity.vo.BooksVO;
 import com.power.demo.service.contract.BookService;
 import io.swagger.annotations.Api;
@@ -19,11 +21,16 @@ public class BooksController {
 //    @RequestMapping(value = "/addBooks", method = RequestMethod.POST)
     @PostMapping("/addBooks") // 等同于上一行,简写
     @ApiOperation("添加图书")
-    public String addBooks(@RequestBody BooksVO books){
+    public Integer addBooks(@RequestBody BooksVO books){
+        int a = 0;
         // TODO 所有方法增加try catch处理
+        try {
+           a =  bookService.addBooks(books);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         // TODO 所有方法增加统一返回体设计
-        bookService.addBooks(books);
-        return "成功";
+        return a;
     }
 
 //    @RequestMapping(value = "/selectBooks", method = RequestMethod.GET)
@@ -31,8 +38,14 @@ public class BooksController {
     @ApiOperation("查询所有图书")
     public List<BooksVO> selectAllBooks(){
         // TODO 增加分页功能
+        PageHelper.startPage(1,2);
        List<BooksVO> books =  bookService.selectAllBooks();
-       return books;
+       //分页结果对象
+        PageInfo<BooksVO> bookpageInfo = new PageInfo<>(books);
+        //条目对象
+        List<BooksVO> list = bookpageInfo.getList();
+
+        return list;
     }
 
 //    @RequestMapping(value = "/selectByName", method = RequestMethod.GET)
@@ -62,8 +75,11 @@ public class BooksController {
     @DeleteMapping("/deleteBooks") // 等同于上一行,简写
     @ApiOperation("根据id删除图书")
     public String deleteBooks(@RequestParam String bookId){
-        bookService.deleteBooks(bookId);
+        int a =bookService.deleteBooks(bookId);
         // TODO 按照changeBooks增加判断
+        if(a==0){
+            return "未执行删除操作";
+        }
         return "删除成功";
     }
 }

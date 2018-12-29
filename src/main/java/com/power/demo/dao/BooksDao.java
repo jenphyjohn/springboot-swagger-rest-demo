@@ -11,7 +11,7 @@ public interface BooksDao {
      * 添加图书
      * @param books
      */
-    void addBooks(BooksVO books);
+    int addBooks(BooksVO books);
 
 
     /**
@@ -37,5 +37,5 @@ public interface BooksDao {
     /**
      * 根据id删除图书
      */
-    void deleteBooks(@Param("id") String bookId);
+    int deleteBooks(@Param("id") String bookId);
 }

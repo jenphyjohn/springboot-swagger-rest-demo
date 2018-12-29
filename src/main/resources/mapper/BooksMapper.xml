@@ -25,6 +25,13 @@
       AND Name = #{name}
     </select>
 
+    <select id="selectById" resultType="com.power.demo.entity.vo.BooksVO" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Books_List"/>
+        FROM books WHERE 1=1
+        AND Id = #{id}
+    </select>
+
     <insert id="addBooks" parameterMap="Books">
       insert INTO books(Id,Name,Price,Category)
       VALUES(#{id},#{name},#{price},#{category})

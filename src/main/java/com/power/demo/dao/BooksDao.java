@@ -25,6 +25,11 @@ public interface BooksDao {
     BooksVO selectByName(@Param("name") String booksName);
 
     /**
+     * 根据Id查询图书
+     */
+    BooksVO selectById(@Param("id") String id);
+
+    /**
      * 根据id修改图书内容
      */
     int changeBooks(BooksVO books);

@@ -25,14 +25,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BooksVO selectByName(String booksName) {
-        BooksVO book = booksDao.selectByName(booksName);
-        return book;
+        return booksDao.selectByName(booksName);
+    }
+
+    @Override
+    public BooksVO selectById(String id) {
+        return booksDao.selectById(id);
     }
 
     @Override
     public int changeBooks(BooksVO book) {
-       int a =  booksDao.changeBooks(book);
-        return a;
+        return booksDao.changeBooks(book);
     }
 
     @Override

@@ -20,6 +20,8 @@ public class BooksController {
     @PostMapping("/addBooks") // 等同于上一行,简写
     @ApiOperation("添加图书")
     public String addBooks(@RequestBody BooksVO books){
+        // TODO 所有方法增加try catch处理
+        // TODO 所有方法增加统一返回体设计
         bookService.addBooks(books);
         return "成功";
     }
@@ -28,6 +30,7 @@ public class BooksController {
     @GetMapping("/selectBooks") // 等同于上一行,简写
     @ApiOperation("查询所有图书")
     public List<BooksVO> selectAllBooks(){
+        // TODO 增加分页功能
        List<BooksVO> books =  bookService.selectAllBooks();
        return books;
     }
@@ -43,9 +46,16 @@ public class BooksController {
 //    @RequestMapping(value = "/changeBooks", method = RequestMethod.PUT)
     @PutMapping("/changeBooks") // 等同于上一行,简写
     @ApiOperation("根据id修改图书内容")
-    public int changeBooks(@RequestBody BooksVO book){
+    public String changeBooks(@RequestBody BooksVO book){
+        BooksVO booksVO = bookService.selectById(book.getId());
+        if (booksVO == null) {
+            return "未找到资源";
+        }
         int a = bookService.changeBooks(book);
-        return a;
+        if (a > 0) {
+            return "修改成功";
+        }
+        return "修改失败";
     }
 
 //    @RequestMapping(value = "/deleteBooks", method = RequestMethod.DELETE)
@@ -53,6 +63,7 @@ public class BooksController {
     @ApiOperation("根据id删除图书")
     public String deleteBooks(@RequestParam String bookId){
         bookService.deleteBooks(bookId);
+        // TODO 按照changeBooks增加判断
         return "删除成功";
     }
 }

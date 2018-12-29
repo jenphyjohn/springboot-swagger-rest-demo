@@ -21,6 +21,11 @@ public interface BookService {
     BooksVO selectByName(String booksName);
 
     /**
+     * 根据id查询图书
+     */
+    BooksVO selectById(String id);
+
+    /**
      * 根据id修改图书内容
      */
     int changeBooks(BooksVO book);
